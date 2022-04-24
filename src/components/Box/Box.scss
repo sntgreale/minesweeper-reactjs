@@ -1,0 +1,47 @@
+$--box-surface-color: #444;
+
+.box-surface {
+    color: var(--box-surface-color);
+};
+
+.box-surface-color-red {
+    --box-surface-color: red;
+};
+
+.box-surface-color-white {
+    --box-surface-color: white;
+};
+
+.box-surface-color-orange {
+    --box-surface-color: orange;
+};
+
+.box-surface-color-yellow {
+    --box-surface-color: yellow;
+};
+
+.box-surface-color-cyan {
+    --box-surface-color: cyan;
+};
+
+.box-surface-color-lightblue {
+    --box-surface-color: lightblue;
+};
+
+.box-surface-color-pink {
+    --box-surface-color: pink;
+};
+
+.box-surface-color-violet {
+    --box-surface-color: violet;
+};
+
+.box-surface-color-grey {
+    --box-surface-color: #444;
+};
+
+.box-surface-color-black {
+    --box-surface-color: black;
+};
+
+
