@@ -1,3 +1,4 @@
+import Box from '../Box/Box'
 import "./Matrix.scss";
 
 /**
@@ -12,7 +13,9 @@ const Matrix = ({ data }) => {
         {data.map((col) => (
           <div className="matrix-columns">
             {col.map((row) => (
-              <div className="matrix-rows">{row}</div>
+              <div className="matrix-rows">
+                <Box data={row}/>
+              </div>
             ))}
           </div>
         ))}

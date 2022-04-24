@@ -62,9 +62,16 @@ const Menu = () => {
     );
   };
 
+  const mainMatrix = () => {
+    const data = createMatrix({ rows, columns });
+    return (
+      <Matrix data={data} />
+    )
+  }
+
   return (
     <div>
-      {started ? <Matrix data={createMatrix({ rows, columns })} /> : mainMenu()}
+      {started ? mainMatrix() : mainMenu()}
     </div>
   );
 };
