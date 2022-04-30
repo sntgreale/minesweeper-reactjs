@@ -1,10 +1,10 @@
-import { useState } from "react";
-import Button from "../Button/Button";
-import Input from "../Input/Input";
-import Matrix from "../Matrix/Matrix";
-import Separator from "../Separator/Separator";
-import createMatrix from "../../functions/createMatrix";
-import "./Menu.scss";
+import { useState } from 'react';
+import Button from '../Button/Button';
+import Input from '../Input/Input';
+import Matrix from '../Matrix/Matrix';
+import Separator from '../Separator/Separator';
+import createMatrix from '../../functions/createMatrix';
+import './Menu.scss';
 
 const Menu = () => {
   const [rows, setRows] = useState(10);
@@ -12,7 +12,7 @@ const Menu = () => {
   const [started, setStarted] = useState(false);
 
   const inputConfig = {
-    type: "number",
+    type: 'number',
     minQty: 10,
     maxQty: 25,
   };
@@ -37,25 +37,25 @@ const Menu = () => {
 
   const mainMenu = () => {
     return (
-      <div className="menu">
-        <div className="menu-container">
-          <div className="menu-configuration">
+      <div className='menu'>
+        <div className='menu-container'>
+          <div className='menu-configuration'>
             <Input
-              label={"Rows"}
+              label={'Rows'}
               defaultValue={rows}
               inputConfig={inputConfig}
               handleChange={handleChangeRows}
             />
             <Input
-              label={"Columns"}
+              label={'Columns'}
               defaultValue={columns}
               inputConfig={inputConfig}
               handleChange={handleChangeColumns}
             />
           </div>
           <Separator />
-          <div className="menu-options">
-            <Button label={"START!"} handleChange={handleStartGame} />
+          <div className='menu-options'>
+            <Button label={'START!'} handleChange={handleStartGame} />
           </div>
         </div>
       </div>

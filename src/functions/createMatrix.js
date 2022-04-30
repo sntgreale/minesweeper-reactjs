@@ -1,9 +1,4 @@
 // Main function to create the matrix.
-/**
- *
- * @param {object} param0
- * @returns {array}
- */
 const createMatrix = ({ rows, columns }) => {
   let matrix = createEmptyMatrix(rows, columns);
   matrix = setMines(rows, columns, matrix);
@@ -68,12 +63,12 @@ const setNumbers = (rows, columns, matrixWithMines) => {
 
   for (let x = 0; x < rows; x++) {
     for (let y = 0; y < columns; y++) {
-      if (matrixWithMines[x][y].value !== "*") {
+      if (matrixWithMines[x][y].value !== '*') {
         let sum = 0;
         for (let i = -1; i <= 1; i++) {
           for (let j = -1; j <= 1; j++) {
             try {
-              if (matrixWithMines[x + i][y + j]?.value === "*") {
+              if (matrixWithMines[x + i][y + j]?.value === '*') {
                 if (x + i > -1 && y + j > -1) {
                   sum++;
                 }
@@ -118,7 +113,7 @@ const setColor = (number) => {
  * @returns {number}
  */
 const calculateNumbersOfMines = (rows, columns) => {
-  const minesQty = parseInt((rows * columns) / 2);
+  const minesQty = parseInt((rows * columns) / 3);
   return minesQty;
 };
 

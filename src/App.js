@@ -3,8 +3,8 @@ import Menu from './components/Menu/Menu';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className='App'>
+      <header className='App-header'>
         <Menu />
       </header>
     </div>

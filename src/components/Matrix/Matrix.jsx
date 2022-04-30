@@ -1,5 +1,5 @@
 import Box from '../Box/Box'
-import "./Matrix.scss";
+import './Matrix.scss';
 
 /**
  *
@@ -8,13 +8,13 @@ import "./Matrix.scss";
 
 const Matrix = ({ data }) => {
   return (
-    <div className="matrix">
-      <div className="matrix-container">
+    <div className='matrix'>
+      <div className='matrix-container'>
         {data.map((col) => (
-          <div className="matrix-columns">
+          <div className='matrix-columns'>
             {col.map((row) => (
-              <div className="matrix-rows">
-                <Box data={row}/>
+              <div className='matrix-rows'>
+                <Box data={row} />
               </div>
             ))}
           </div>

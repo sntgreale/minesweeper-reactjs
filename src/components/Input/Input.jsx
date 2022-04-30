@@ -1,15 +1,15 @@
-import "./Input.scss"
+import './Input.scss'
 
 const Input = ({ label, defaultValue, inputConfig, handleChange }) => {
     return (
-        <div className="input">
-            <div className="input-container">
-                <div className="input-label">
+        <div className='input'>
+            <div className='input-container'>
+                <div className='input-label'>
                     <span>{ label }</span>
                 </div>
-                <div className="input-entry">
+                <div className='input-entry'>
                     <input
-                        className="input-entry-area"
+                        className='input-entry-area'
                         type={inputConfig.type}
                         min={inputConfig.minQty}
                         max={inputConfig.maxQty}

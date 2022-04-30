@@ -1,14 +1,17 @@
-import "./Button.scss"
+import './Button.scss'
 
-const Button = ({ label, handleChange }) => {
+const Button = ({ disabled = false, label, handleChange }) => {
     return (
-        <div className="button">
-            <div className="button-container">
+        <div className='button'>
+            <div className='button-container'>
                 <button
-                    className="button-clickable"
+                    disabled={disabled}
+                    className='button-clickable'
                     onClick={handleChange}
                 >
-                    {label}
+                    <b>
+                        {label}
+                    </b>
                 </button>
             </div>
         </div>
