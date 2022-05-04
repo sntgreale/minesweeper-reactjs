@@ -37,7 +37,7 @@ const Menu = () => {
 
   const mainMenu = () => {
     return (
-      <div className='menu'>
+      <div className='menu' onContextMenu={(e) => e.preventDefault()}>
         <div className='menu-container'>
           <div className='menu-configuration'>
             <Input
@@ -64,16 +64,10 @@ const Menu = () => {
 
   const mainMatrix = () => {
     const data = createMatrix({ rows, columns });
-    return (
-      <Matrix data={data} />
-    )
-  }
+    return <Matrix data={data} />;
+  };
 
-  return (
-    <div>
-      {started ? mainMatrix() : mainMenu()}
-    </div>
-  );
+  return <div>{started ? mainMatrix() : mainMenu()}</div>;
 };
 
 export default Menu;

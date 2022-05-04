@@ -1,20 +1,25 @@
-import Box from '../Box/Box'
+import Box from '../Box/Box';
 import './Matrix.scss';
 
 /**
- *
- * @param {*} data
+ * Array with the generated matrix data.
+ * @param {Array} data
  */
 
 const Matrix = ({ data }) => {
   return (
-    <div className='matrix'>
+    <div
+      className='matrix'
+      onContextMenu={(e) => {
+        e.preventDefault();
+      }}
+    >
       <div className='matrix-container'>
-        {data.map((col) => (
-          <div className='matrix-columns'>
-            {col.map((row) => (
-              <div className='matrix-rows'>
-                <Box data={row} />
+        {data.map((row) => (
+          <div className='matrix-rows'>
+            {row.map((col) => (
+              <div className='matrix-columns'>
+                <Box data={col} />
               </div>
             ))}
           </div>

@@ -19,7 +19,12 @@ const createEmptyMatrix = (rows, columns) => {
   for (let x = 0; x < rows; x++) {
     newMatrix[x] = [];
     for (let y = 0; y < columns; y++) {
-      newMatrix[x][y] = {value: '', isHidden: false, color: ''}
+      newMatrix[x][y] = {
+        value: '',
+        isHidden: false,
+        color: '',
+        position: { row: x, column: y },
+      };
     }
   }
   return newMatrix;
@@ -88,22 +93,22 @@ const setNumbers = (rows, columns, matrixWithMines) => {
 
 // Function to set the color corresponding to the number assigned in the box.
 /**
- * 
- * @param {number} number 
+ *
+ * @param {number} number
  * @returns {string}
  */
 const setColor = (number) => {
-  if(number === 0) return 'grey';
-  if(number === 1) return 'red';
-  if(number === 2) return 'white';
-  if(number === 3) return 'orange';
-  if(number === 4) return 'yellow';
-  if(number === 5) return 'cyan';
-  if(number === 6) return 'lightblue';
-  if(number === 7) return 'pink';
-  if(number === 8) return 'violet';
+  if (number === 0) return 'grey';
+  if (number === 1) return 'red';
+  if (number === 2) return 'white';
+  if (number === 3) return 'orange';
+  if (number === 4) return 'yellow';
+  if (number === 5) return 'cyan';
+  if (number === 6) return 'lightblue';
+  if (number === 7) return 'pink';
+  if (number === 8) return 'violet';
   return 'black';
-}
+};
 
 // Function to calculate the number of mines depending on the height and width of the matrix.
 /**

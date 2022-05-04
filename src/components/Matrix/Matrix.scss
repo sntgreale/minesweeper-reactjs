@@ -18,16 +18,16 @@
 
 .matrix-columns {
     display: flex;
-    width: 100%;
-    justify-content: space-around;
-}
-
-.matrix-rows {
-    display: flex;
     width: 2rem;
     height: 2rem;
     margin: 0.1rem;
     justify-content: center;
     align-items: center;
     background-color: #444;
+}
+
+.matrix-rows {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
