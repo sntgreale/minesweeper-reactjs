@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import * as PropType from 'prop-types';
 import './Box.scss';
 
 /**
@@ -38,6 +39,14 @@ const Box = ({ data }) => {
       </div>
     </button>
   );
+};
+
+Box.defaultProps = {
+  data: {},
+};
+
+Box.propTypes = {
+  data: PropType.object,
 };
 
 export default Box;

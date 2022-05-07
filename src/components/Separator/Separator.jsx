@@ -1,3 +1,4 @@
+import React from 'react';
 import './Separator.scss';
 
 const Separator = () => {

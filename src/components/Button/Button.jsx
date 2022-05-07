@@ -1,3 +1,5 @@
+import React from 'react';
+import * as PropType from 'prop-types';
 import './Button.scss';
 
 /**
@@ -11,8 +13,8 @@ import './Button.scss';
  * @param {String} className
  */
 
-const Button = ({ disabled = false, label, handleChange, className = '' }) => {
-  const createClassName = (className) => {
+const Button = ({ disabled, label, handleChange, className }) => {
+  const createClassName = () => {
     return `button-clickable ${className}`;
   };
 
@@ -21,7 +23,7 @@ const Button = ({ disabled = false, label, handleChange, className = '' }) => {
       <div className='button-container'>
         <button
           disabled={disabled}
-          className={createClassName(className)}
+          className={createClassName()}
           onClick={handleChange}
         >
           <b>{label}</b>
@@ -29,6 +31,20 @@ const Button = ({ disabled = false, label, handleChange, className = '' }) => {
       </div>
     </div>
   );
+};
+
+Button.defaultProps = {
+  disabled: false,
+  label: '',
+  handleChange: () => {},
+  className: '',
+};
+
+Button.propTypes = {
+  disabled: PropType.bool,
+  label: PropType.string,
+  handleChange: PropType.func,
+  className: PropType.string,
 };
 
 export default Button;

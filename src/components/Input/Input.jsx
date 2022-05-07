@@ -1,3 +1,5 @@
+import React from 'react';
+import * as PropType from 'prop-types';
 import './Input.scss';
 
 /**
@@ -31,6 +33,20 @@ const Input = ({ label, defaultValue, inputConfig, handleChange }) => {
       </div>
     </div>
   );
+};
+
+Input.defaultProps = {
+  label: '',
+  defaultValue: 0,
+  inputConfig: {},
+  handleChange: function () {},
+};
+
+Input.propTypes = {
+  label: PropType.string,
+  defaultValue: PropType.number,
+  inputConfig: PropType.object,
+  handleChange: PropType.func,
 };
 
 export default Input;
