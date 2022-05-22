@@ -39,7 +39,7 @@ Input.defaultProps = {
   label: '',
   defaultValue: 0,
   inputConfig: {},
-  handleChange: function () {},
+  handleChange: () => {},
 };
 
 Input.propTypes = {

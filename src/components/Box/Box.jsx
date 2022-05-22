@@ -7,20 +7,23 @@ import './Box.scss';
  * @param {Array} data
  */
 
-const Box = ({ data }) => {
-  const { value, isHidden, color, position } = data;
+const Box = ({ data, handleClickLeftOnBox, handleClickRightOnBox }) => {
+  const { value, state, color } = data;
+  const { isHidden } = state;
 
-  const [isVisible, setIsVisible] = useState(!isHidden);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(!isHidden);
 
   const handleClickLeft = () => {
-    // TODO Logic for left click
+    if (!isDisabled) {
+      handleClickLeftOnBox(data);
+    }
   };
 
   const handleClickRight = (e) => {
-    // necessary to not display the popup
     e.preventDefault();
-    // TODO Logic for right click
+    if (!isDisabled) {
+      handleClickRightOnBox(data);
+    }
   };
 
   const createClassName = () => {
@@ -31,10 +34,12 @@ const Box = ({ data }) => {
     <button
       className='box-container'
       onClick={() => handleClickLeft()}
-      onContextMenu={(e) => handleClickRight(e)}
+      onContextMenu={(e) => {
+        handleClickRight(e);
+      }}
       disabled={isDisabled}
     >
-      <div className={createClassName()} hidden={isVisible}>
+      <div className={createClassName()} hidden={isHidden}>
         <b className='box-label'>{value}</b>
       </div>
     </button>
@@ -43,10 +48,14 @@ const Box = ({ data }) => {
 
 Box.defaultProps = {
   data: {},
+  handleClickLeftOnBox: () => {},
+  handleClickRightOnBox: () => {},
 };
 
 Box.propTypes = {
   data: PropType.object,
+  handleClickLeftOnBox: PropType.func,
+  handleClickRightOnBox: PropType.func,
 };
 
 export default Box;

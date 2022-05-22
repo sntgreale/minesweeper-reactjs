@@ -21,7 +21,10 @@ const createEmptyMatrix = (rows, columns) => {
     for (let y = 0; y < columns; y++) {
       newMatrix[x][y] = {
         value: '',
-        isHidden: false,
+        state: {
+          isHidden: true,
+          userChoice: null,
+        },
         color: '',
         position: { row: x, column: y },
       };
@@ -95,7 +98,7 @@ const setNumbers = (rows, columns, matrixWithMines) => {
 /**
  *
  * @param {number} number
- * @returns {string}
+ * @returns {string} String with color of number
  */
 const setColor = (number) => {
   if (number === 0) return 'grey';
@@ -115,7 +118,7 @@ const setColor = (number) => {
  *
  * @param {number} rows
  * @param {number} columns
- * @returns {number}
+ * @returns {number} Quantity of mines
  */
 const calculateNumbersOfMines = (rows, columns) => {
   const minesQty = parseInt((rows * columns) / 3);
@@ -127,7 +130,7 @@ const calculateNumbersOfMines = (rows, columns) => {
  *
  * @param {number} min
  * @param {number} max
- * @returns {number}
+ * @returns {number} random number
  */
 const getRandomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
