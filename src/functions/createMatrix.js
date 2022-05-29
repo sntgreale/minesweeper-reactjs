@@ -20,12 +20,8 @@ const createEmptyMatrix = (rows, columns) => {
     newMatrix[x] = [];
     for (let y = 0; y < columns; y++) {
       newMatrix[x][y] = {
-        value: '',
-        state: {
-          isHidden: true,
-          userChoice: null,
-        },
-        color: '',
+        originalData: { value: '', color: '' },
+        logicalData: { value: '', isHidden: true, action: '', color: 'white' },
         position: { row: x, column: y },
       };
     }
@@ -49,9 +45,12 @@ const setMines = (rows, columns, matrix) => {
   while (remainingMines > 0) {
     x = getRandomInteger(min, rows - 1);
     y = getRandomInteger(min, columns - 1);
-    if (!matrixWithMines[x][y] || matrixWithMines[x][y].value !== '*') {
-      matrixWithMines[x][y].value = '*';
-      matrixWithMines[x][y].color = 'black';
+    if (
+      !matrixWithMines[x][y] ||
+      matrixWithMines[x][y].originalData.value !== '*'
+    ) {
+      matrixWithMines[x][y].originalData.value = '*';
+      matrixWithMines[x][y].originalData.color = 'black';
       remainingMines -= 1;
     }
   }
@@ -71,12 +70,12 @@ const setNumbers = (rows, columns, matrixWithMines) => {
 
   for (let x = 0; x < rows; x++) {
     for (let y = 0; y < columns; y++) {
-      if (matrixWithMines[x][y].value !== '*') {
+      if (matrixWithMines[x][y].originalData.value !== '*') {
         let sum = 0;
         for (let i = -1; i <= 1; i++) {
           for (let j = -1; j <= 1; j++) {
             try {
-              if (matrixWithMines[x + i][y + j]?.value === '*') {
+              if (matrixWithMines[x + i][y + j]?.originalData.value === '*') {
                 if (x + i > -1 && y + j > -1) {
                   sum++;
                 }
@@ -86,8 +85,8 @@ const setNumbers = (rows, columns, matrixWithMines) => {
             }
           }
         }
-        matrixWithNums[x][y].value = sum;
-        matrixWithNums[x][y].color = setColor(sum);
+        matrixWithNums[x][y].originalData.value = sum;
+        matrixWithNums[x][y].originalData.color = setColor(sum);
       }
     }
   }
@@ -103,7 +102,7 @@ const setNumbers = (rows, columns, matrixWithMines) => {
 const setColor = (number) => {
   if (number === 0) return 'grey';
   if (number === 1) return 'red';
-  if (number === 2) return 'white';
+  if (number === 2) return 'green';
   if (number === 3) return 'orange';
   if (number === 4) return 'yellow';
   if (number === 5) return 'cyan';

@@ -1,73 +1,77 @@
 import React, { useState } from 'react';
-import Button from '../Button/Button';
-import Input from '../Input/Input';
+import Card from '../Card/Card';
+import CustomMenu from '../CustomMenu/CustomMenu';
 import Matrix from '../Matrix/Matrix';
-import Separator from '../Separator/Separator';
 import createMatrix from '../../functions/createMatrix';
+import configurations from './Menu.configuration.json';
 import './Menu.scss';
 
 const Menu = () => {
-  const [rows, setRows] = useState(10);
-  const [columns, setColumns] = useState(10);
   const [started, setStarted] = useState(false);
+  const [useCustom, setUseCustom] = useState(false);
 
-  const inputConfig = {
-    type: 'number',
-    minQty: 10,
-    maxQty: 25,
-  };
+  const handleConfigurationCustom = (configurationEntered) => {};
 
-  const checkLimitValues = (valueBetween) => {
-    return valueBetween >= 10 && valueBetween <= 50;
-  };
-
-  const handleChangeRows = (event) => {
-    setRows(event.target.value);
-  };
-
-  const handleChangeColumns = (event) => {
-    setColumns(event.target.value);
-  };
-
-  const handleStartGame = () => {
-    if (checkLimitValues(rows) && checkLimitValues(columns)) {
-      setStarted(!started);
+  const handleConfigurationSelected = (dataFromChildren) => {
+    const { rows, columns, mines, isCustom } = dataFromChildren;
+    if (isCustom) {
+      setUseCustom(true);
+    } else {
+      const { quantity: rowsQuantity } = rows;
+      const { quantity: columnsQuantity } = columns;
+      const { quantity: minesQuantity } = mines;
+      if (!rowsQuantity || !columnsQuantity || !minesQuantity) {
+        return; // TODO Error message for missing values.
+      }
     }
   };
 
-  const mainMenu = () => {
+  const genericMenu = () => {
+    return (
+      <div className='menu-generic-configuration'>
+        {configurations.map((c) => {
+          return (
+            <Card
+              configuration={c}
+              key={c.title}
+              handleSelection={(configurationSelected) => {
+                handleConfigurationSelected(configurationSelected);
+              }}
+            />
+          );
+        })}
+      </div>
+    );
+  };
+
+  const customEntrance = () => {
+    return (
+      <div className='menu-configurable-configuration'>
+        <CustomMenu
+          handleEntrance={(configurationEntered) => {
+            handleConfigurationCustom(configurationEntered);
+          }}
+        />
+      </div>
+    );
+  };
+
+  const menu = () => {
     return (
       <div className='menu' onContextMenu={(e) => e.preventDefault()}>
         <div className='menu-container'>
-          <div className='menu-configuration'>
-            <Input
-              label={'Rows'}
-              defaultValue={rows}
-              inputConfig={inputConfig}
-              handleChange={handleChangeRows}
-            />
-            <Input
-              label={'Columns'}
-              defaultValue={columns}
-              inputConfig={inputConfig}
-              handleChange={handleChangeColumns}
-            />
-          </div>
-          <Separator />
-          <div className='menu-options'>
-            <Button label={'START!'} handleChange={handleStartGame} />
-          </div>
+          {useCustom ? customEntrance() : genericMenu()}
         </div>
       </div>
     );
   };
 
   const mainMatrix = () => {
-    const data = createMatrix({ rows, columns });
+    const data = createMatrix();
     return <Matrix data={data} />;
   };
 
-  return <div>{started ? mainMatrix() : mainMenu()}</div>;
+  return menu();
 };
 
 export default Menu;

@@ -1,0 +1,84 @@
+.card-container {
+    width: 12rem;
+    height: 12rem;
+    background-color: #333;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr;
+    border-radius: 0.5rem;
+    color: #E4E4E4;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.card-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.card-data-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-data-size {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    .card-data-size-rows {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .card-data-size-rows-quantity {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-right: 0.3rem;
+        }
+        .card-data-size-rows-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+    }
+    
+    .card-data-size-columns {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .card-data-size-columns-quantity {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-right: 0.3rem;
+        }
+        .card-data-size-columns-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+    }
+}
+
+.card-data-mines {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .card-data-mines-quantity {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-right: 0.3rem;
+    }
+    .card-data-mines-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+}

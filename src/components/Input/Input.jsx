@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as PropType from 'prop-types';
 import './Input.scss';
 
@@ -14,6 +14,14 @@ import './Input.scss';
  */
 
 const Input = ({ label, defaultValue, inputConfig, handleChange }) => {
+  const [value, setValue] = useState(defaultValue);
+
+  const handlerChangeValue = (e) => {
+    const value = e.target.value;
+    setValue(value);
+    handleChange({ value, label, defaultValue, inputConfig });
+  };
+
   return (
     <div className='input'>
       <div className='input-container'>
@@ -27,7 +35,8 @@ const Input = ({ label, defaultValue, inputConfig, handleChange }) => {
             min={inputConfig.minQty}
             max={inputConfig.maxQty}
             defaultValue={defaultValue}
-            onChange={handleChange}
+            value={value}
+            onChange={(e) => handlerChangeValue(e)}
           />
         </div>
       </div>

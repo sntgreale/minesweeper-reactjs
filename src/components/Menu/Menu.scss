@@ -6,17 +6,20 @@
     width: 100%;
     height: 100%;
 }
-
 .menu-container {
-    width: auto;
-    height: auto;
+    display: contents;
+}
+.menu-generic-configuration {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #444;
+    grid-gap: 0.5rem;
     padding: 1rem;
-    background-color: #121212;
-    color: #FFFFFF;
     border-radius: 0.5rem;
 }
 
-.menu-configuration {
-    width: 100%;
-    justify-content: space-around;
+.menu-configurable-configuration {
+    background-color: #444;
+    padding: 1rem;
+    border-radius: 0.5rem;
 }

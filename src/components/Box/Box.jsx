@@ -8,10 +8,9 @@ import './Box.scss';
  */
 
 const Box = ({ data, handleClickLeftOnBox, handleClickRightOnBox }) => {
-  const { value, state, color } = data;
-  const { isHidden } = state;
+  const { originalData, logicalData } = data;
 
-  const [isDisabled, setIsDisabled] = useState(!isHidden);
+  const [isDisabled] = useState(!originalData.isHidden);
 
   const handleClickLeft = () => {
     if (!isDisabled) {
@@ -26,7 +25,15 @@ const Box = ({ data, handleClickLeftOnBox, handleClickRightOnBox }) => {
     }
   };
 
+  const getValue = () => {
+    const value = logicalData.value;
+    return value;
+  };
+
   const createClassName = () => {
+    const color = !logicalData.isHidden
+      ? originalData.color
+      : logicalData.color;
     return `box-surface box-surface-color-${color}`;
   };
 
@@ -39,8 +46,8 @@ const Box = ({ data, handleClickLeftOnBox, handleClickRightOnBox }) => {
       }}
       disabled={isDisabled}
     >
-      <div className={createClassName()} hidden={isHidden}>
-        <b className='box-label'>{value}</b>
+      <div className={createClassName()}>
+        <b className='box-label'>{getValue()}</b>
       </div>
     </button>
   );

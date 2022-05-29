@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as PropType from 'prop-types';
 import Box from '../Box/Box';
-import handleBoxAction from '../../functions/handleBoxActions';
+// import handleBoxAction from '../../functions/handleBoxActions';
 import './Matrix.scss';
 
 /**
@@ -10,9 +10,12 @@ import './Matrix.scss';
  */
 
 const Matrix = ({ data }) => {
+  const LEFT = 'LEFT';
+  const RIGHT = 'RIGHT';
   const [newData, setNewData] = useState(data);
 
   const handleClickLeftOnBox = (dataFromChildren) => {
+    // TODO: Logic for Left click
     // Call function to check if Box is not already showed.
     //* If isDisabled = true, this is not necessary.
     //* Because the value corresponding to the box is being displayed
@@ -22,17 +25,17 @@ const Matrix = ({ data }) => {
     // Call the function to unhide the Box value.
     //* Update isHidden state.
     // Call the function to update state.
-    console.log('Left click on Matrix');
+    console.log(`Left click on Matrix ${LEFT}`);
   };
 
   const handleClickRightOnBox = (dataFromChildren) => {
-    // TODO Logic for right click
+    // TODO Logic for Right click
     /*
      * When the user right clicks,
      * it is necessary to update the state.userChoice ( nothing -> flag -> question ).
      * But do not show the number (or mine).
      */
-    console.log('Right click on Matrix');
+    console.log(`Right click on Matrix ${RIGHT}`);
   };
 
   return (

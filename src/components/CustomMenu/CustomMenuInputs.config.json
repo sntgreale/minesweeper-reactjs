@@ -1,0 +1,29 @@
+[
+  {
+    "label": "Rows",
+    "defaultValue": 2,
+    "inputConfig": {
+      "type": "number",
+      "minQty": 2,
+      "maxQty": 35
+    }
+  },
+  {
+    "label": "Columns",
+    "defaultValue": 2,
+    "inputConfig": {
+      "type": "number",
+      "minQty": 2,
+      "maxQty": 35
+    }
+  },
+  {
+    "label": "Mines",
+    "defaultValue": 1,
+    "inputConfig": {
+      "type": "number",
+      "minQty": 1,
+      "maxQty": 999
+    }
+  }
+]

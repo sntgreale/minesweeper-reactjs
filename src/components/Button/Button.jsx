@@ -13,7 +13,7 @@ import './Button.scss';
  * @param {String} className
  */
 
-const Button = ({ disabled, label, handleChange, className }) => {
+const Button = ({ label, disabled, className, handleChange }) => {
   const createClassName = () => {
     return `button-clickable ${className}`;
   };

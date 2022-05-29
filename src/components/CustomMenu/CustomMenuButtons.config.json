@@ -1,0 +1,12 @@
+[
+  {
+    "label": "Play Game!",
+    "disabled": false,
+    "className": "customMenu-button-playgame"
+  },
+  {
+    "label": "Cancel",
+    "disabled": false,
+    "className": "customMenu-button-cancel"
+  }
+]
