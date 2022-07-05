@@ -13,13 +13,14 @@ import './Input.scss';
  * @param {Function} handleChange
  */
 
-const Input = ({ label, defaultValue, inputConfig, handleChange }) => {
+const Input = ({ data, handleChange }) => {
+  const { _searchKey, label, defaultValue, inputConfig } = data;
   const [value, setValue] = useState(defaultValue);
 
   const handlerChangeValue = (e) => {
     const value = e.target.value;
     setValue(value);
-    handleChange({ value, label, defaultValue, inputConfig });
+    handleChange({ _searchKey, value });
   };
 
   return (
@@ -45,16 +46,12 @@ const Input = ({ label, defaultValue, inputConfig, handleChange }) => {
 };
 
 Input.defaultProps = {
-  label: '',
-  defaultValue: 0,
-  inputConfig: {},
+  data: {},
   handleChange: () => {},
 };
 
 Input.propTypes = {
-  label: PropType.string,
-  defaultValue: PropType.number,
-  inputConfig: PropType.object,
+  data: PropType.object,
   handleChange: PropType.func,
 };
 

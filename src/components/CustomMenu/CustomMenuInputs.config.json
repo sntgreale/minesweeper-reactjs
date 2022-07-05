@@ -1,5 +1,6 @@
 [
   {
+    "_searchKey": "ROWS",
     "label": "Rows",
     "defaultValue": 2,
     "inputConfig": {
@@ -9,6 +10,7 @@
     }
   },
   {
+    "_searchKey": "COLUMNS",
     "label": "Columns",
     "defaultValue": 2,
     "inputConfig": {
@@ -18,12 +20,13 @@
     }
   },
   {
+    "_searchKey": "MINES",
     "label": "Mines",
     "defaultValue": 1,
     "inputConfig": {
       "type": "number",
       "minQty": 1,
-      "maxQty": 999
+      "maxQty": 1224
     }
   }
 ]

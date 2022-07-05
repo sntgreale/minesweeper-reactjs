@@ -13,7 +13,12 @@ import './Button.scss';
  * @param {String} className
  */
 
-const Button = ({ label, disabled, className, handleChange }) => {
+const Button = ({ handleChange, data }) => {
+  const { _searchKey, label, disabled, className } = data;
+  const handlerButtonPressed = () => {
+    handleChange({ _searchKey });
+  };
+
   const createClassName = () => {
     return `button-clickable ${className}`;
   };
@@ -24,7 +29,7 @@ const Button = ({ label, disabled, className, handleChange }) => {
         <button
           disabled={disabled}
           className={createClassName()}
-          onClick={handleChange}
+          onClick={() => handlerButtonPressed()}
         >
           <b>{label}</b>
         </button>
@@ -34,17 +39,15 @@ const Button = ({ label, disabled, className, handleChange }) => {
 };
 
 Button.defaultProps = {
-  disabled: false,
-  label: '',
-  handleChange: () => {},
   className: '',
+  handleChange: () => {},
+  data: {},
 };
 
 Button.propTypes = {
-  disabled: PropType.bool,
-  label: PropType.string,
-  handleChange: PropType.func,
   className: PropType.string,
+  handleChange: PropType.func,
+  data: PropType.object,
 };
 
 export default Button;

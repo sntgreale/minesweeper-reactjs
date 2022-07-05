@@ -9,72 +9,88 @@ import './CustomMenu.scss';
 
 const CustomMenu = ({ handleEntrance }) => {
   const [inputsOptions, setInputOptions] = useState(inputList);
+  const [buttonsOptions, setButtonsOptions] = useState(buttonsList);
   const [rowsQuantity, setRowsQuantity] = useState(2);
   const [colsQuantity, setColsQuantity] = useState(2);
   const [minesQuantity, setMinesQuantity] = useState(3);
 
   /* useEffect used to determine the maximum number of possible mines to be entered by the user. */
+  /* Also used to determine the status (active or inactive of the PLAY GAME button) according to the number of mines entered. */
   /* Mines MAX = rows*columns-1 */
   useEffect(() => {
-    const rows = returnInputOption('Rows');
-    const columns = returnInputOption('Columns');
-    const mines = returnInputOption('Mines');
-    mines.inputConfig.maxQty = rowsQuantity * colsQuantity - 1;
-    setInputOptions([rows, columns, mines]);
+    const currentInputs = [...inputsOptions];
+    const currentButtons = [...buttonsOptions];
+    const minesInputIndex = returnConfigurationOption(currentInputs, 'MINES');
+    const newMaxQtyMines = rowsQuantity * colsQuantity - 1;
+    currentInputs[minesInputIndex].inputConfig.maxQty = newMaxQtyMines;
+    const playButtonIndex = returnConfigurationOption(
+      currentButtons,
+      'PLAYGAME'
+    );
+    const isValidValue = validateMinesQuantity(newMaxQtyMines);
+    //! It looks ugly .disabled = !isValidValue. See how to change it.
+    currentButtons[playButtonIndex].disabled = !isValidValue;
+
+    setInputOptions(currentInputs);
+    setButtonsOptions(currentButtons);
   }, [rowsQuantity, colsQuantity, minesQuantity]);
 
-  /* Function to return a specific object according to its Label */
-  const returnInputOption = (label) => {
-    const option = inputsOptions.find((opt) => {
-      return opt.label === label;
+  const validateMinesQuantity = (maxQtyValid) => {
+    return minesQuantity >= 1 && minesQuantity <= maxQtyValid;
+  };
+
+  /* Function to return a specific object according to its Search Key */
+  const returnConfigurationOption = (array, key) => {
+    const index = array.findIndex((item) => {
+      return item._searchKey === key;
     });
-    return option;
+    return index;
   };
 
   /* Function to handle changes of input statuses */
   const handleInputChanges = (dataFromChildren) => {
-    console.log(dataFromChildren);
-    if (dataFromChildren.label === 'Rows') {
-      setRowsQuantity(parseInt(dataFromChildren.value));
-    }
-
-    if (dataFromChildren.label === 'Columns') {
-      setColsQuantity(parseInt(dataFromChildren.value));
-    }
-
-    if (dataFromChildren.label === 'Mines') {
-      setMinesQuantity(parseInt(dataFromChildren.value));
+    const quantity = parseInt(dataFromChildren.value);
+    if (dataFromChildren._searchKey === 'ROWS') {
+      setRowsQuantity(quantity);
+    } else {
+      if (dataFromChildren._searchKey === 'COLUMNS') {
+        setColsQuantity(quantity);
+      } else {
+        if (dataFromChildren._searchKey === 'MINES') {
+          setMinesQuantity(quantity);
+        }
+      }
     }
   };
 
   /* Function to manage the button actions. */
-  const handleButtonPresed = () => {};
+  const handleButtonPressed = (dataFromChildren) => {
+    console.log(dataFromChildren);
+  };
 
   const renderInputs = () => {
     return inputsOptions.map((inp) => {
       return (
         <Input
-          label={inp.label}
-          defaultValue={inp.defaultValue}
-          inputConfig={inp.inputConfig}
+          data={inp}
           handleChange={(dataFromChildren) =>
             handleInputChanges(dataFromChildren)
           }
-          key={inp.label}
+          key={inp._searchKey}
         />
       );
     });
   };
 
   const renderButtons = () => {
-    return buttonsList.map((btn) => {
+    return buttonsOptions.map((btn) => {
       return (
         <Button
-          label={btn.label}
-          disabled={btn.disabled}
-          className={btn.className}
-          handleChange={handleButtonPresed}
-          key={btn.label}
+          data={btn}
+          handleChange={(dataFromChildren) =>
+            handleButtonPressed(dataFromChildren)
+          }
+          key={btn._searchKey}
         />
       );
     });

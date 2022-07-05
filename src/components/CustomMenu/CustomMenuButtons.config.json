@@ -1,10 +1,12 @@
 [
   {
+    "_searchKey": "PLAYGAME",
     "label": "Play Game!",
     "disabled": false,
     "className": "customMenu-button-playgame"
   },
   {
+    "_searchKey": "CANCEL",
     "label": "Cancel",
     "disabled": false,
     "className": "customMenu-button-cancel"
