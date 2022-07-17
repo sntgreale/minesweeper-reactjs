@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as PropType from 'prop-types';
 import './Card.scss';
 

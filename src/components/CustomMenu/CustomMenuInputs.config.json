@@ -2,31 +2,31 @@
   {
     "_searchKey": "ROWS",
     "label": "Rows",
-    "defaultValue": 2,
+    "defaultValue": 5,
     "inputConfig": {
       "type": "number",
-      "minQty": 2,
+      "minQty": 5,
       "maxQty": 35
     }
   },
   {
     "_searchKey": "COLUMNS",
     "label": "Columns",
-    "defaultValue": 2,
+    "defaultValue": 5,
     "inputConfig": {
       "type": "number",
-      "minQty": 2,
+      "minQty": 5,
       "maxQty": 35
     }
   },
   {
     "_searchKey": "MINES",
     "label": "Mines",
-    "defaultValue": 1,
+    "defaultValue": 15,
     "inputConfig": {
       "type": "number",
-      "minQty": 1,
-      "maxQty": 1224
+      "minQty": 15,
+      "maxQty": 1195
     }
   }
 ]

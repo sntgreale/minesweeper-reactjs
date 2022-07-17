@@ -3,22 +3,19 @@
     "title": "small",
     "rows": { "label": "rows", "quantity": 8 },
     "columns": { "label": "columns", "quantity": 8 },
-    "mines": { "label": "mines", "quantity": 10 },
-    "isCustom": false
+    "mines": { "label": "mines", "quantity": 10 }
   },
   {
     "title": "medium",
     "rows": { "label": "rows", "quantity": 16 },
     "columns": { "label": "columns", "quantity": 16 },
-    "mines": { "label": "mines", "quantity": 40 },
-    "isCustom": false
+    "mines": { "label": "mines", "quantity": 40 }
   },
   {
     "title": "large",
     "rows": { "label": "rows", "quantity": 30 },
     "columns": { "label": "columns", "quantity": 16 },
-    "mines": { "label": "mines", "quantity": 99 },
-    "isCustom": false
+    "mines": { "label": "mines", "quantity": 99 }
   },
   {
     "title": "custom",

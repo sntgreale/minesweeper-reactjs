@@ -47,21 +47,23 @@ const Matrix = ({ data }) => {
     >
       <div className='matrix-container'>
         {newData.map((row) => (
-          <div className='matrix-rows' key={row[0].position.row}>
-            {row.map((col) => (
-              <div className='matrix-columns' key={col.position.column}>
-                <Box
-                  data={col}
-                  handleClickLeftOnBox={(boxInfo) => {
-                    handleClickLeftOnBox(boxInfo);
-                  }}
-                  handleClickRightOnBox={(boxInfo) => {
-                    handleClickRightOnBox(boxInfo);
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+          <>
+            <div className='matrix-rows' key={row[0].position.row}>
+              {row.map((col) => (
+                <div className='matrix-columns' key={col.position.column}>
+                  <Box
+                    data={col}
+                    handleClickLeftOnBox={(boxInfo) => {
+                      handleClickLeftOnBox(boxInfo);
+                    }}
+                    handleClickRightOnBox={(boxInfo) => {
+                      handleClickRightOnBox(boxInfo);
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </>
         ))}
       </div>
     </div>

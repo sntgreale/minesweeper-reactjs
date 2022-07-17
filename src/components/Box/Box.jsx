@@ -10,7 +10,7 @@ import './Box.scss';
 const Box = ({ data, handleClickLeftOnBox, handleClickRightOnBox }) => {
   const { originalData, logicalData } = data;
 
-  const [isDisabled] = useState(!originalData.isHidden);
+  const [isDisabled] = useState(!logicalData.isHidden);
 
   const handleClickLeft = () => {
     if (!isDisabled) {

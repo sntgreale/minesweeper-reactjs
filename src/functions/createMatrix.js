@@ -1,7 +1,31 @@
+/**
+ * TODO - FIX ME
+ * ! FIX ME
+ * * Currently to create / generate the mines a process is used that randomly (between 0 and row/column -1)
+ * * generates a pair of coordinates where the mine will be placed.
+ *
+ * * This is inefficient in many cases, for example:
+ *
+ * * If we have 5 rows and 5 columns, we have 25 pair of coordinates available and a maximum of 15 mines
+ * * (quantity validation is done previously).
+ * * Such a process can generate 2, 3, 4 ... n, EQUAL pair of coordinates (example: x = 1 , y = 5),
+ * * so the time of creation of the matrix is irregular. INEFFICIENT.
+ *
+ * * Proposed solution:
+ * * Generate an array with the available coordinates (at first they will be all those that compose the matrix)
+ * * and create a process that chooses, randomly, a pair of available coordinates
+ * * (once a pair of coordinates was chosen remove them from the array of those coordinates).
+ *
+ */
+
 // Main function to create the matrix.
-const createMatrix = ({ rows, columns }) => {
+const createMatrix = ({
+  rowsQuantity: rows,
+  columnsQuantity: columns,
+  minesQuantity: mines,
+}) => {
   let matrix = createEmptyMatrix(rows, columns);
-  matrix = setMines(rows, columns, matrix);
+  matrix = setMines(rows, columns, mines, matrix);
   matrix = setNumbers(rows, columns, matrix);
   return matrix;
 };
@@ -37,14 +61,16 @@ const createEmptyMatrix = (rows, columns) => {
  * @param {array} matrix
  * @returns {array}
  */
-const setMines = (rows, columns, matrix) => {
+const setMines = (rows, columns, mines, matrix) => {
   const matrixWithMines = matrix;
   const min = 0;
+  const maxRows = rows - 1;
+  const maxCols = columns - 1;
   let x, y;
-  let remainingMines = calculateNumbersOfMines(rows, columns);
+  let remainingMines = mines;
   while (remainingMines > 0) {
-    x = getRandomInteger(min, rows - 1);
-    y = getRandomInteger(min, columns - 1);
+    x = getRandomInteger(min, maxRows);
+    y = getRandomInteger(min, maxCols);
     if (
       !matrixWithMines[x][y] ||
       matrixWithMines[x][y].originalData.value !== '*'
@@ -110,18 +136,6 @@ const setColor = (number) => {
   if (number === 7) return 'pink';
   if (number === 8) return 'violet';
   return 'black';
-};
-
-// Function to calculate the number of mines depending on the height and width of the matrix.
-/**
- *
- * @param {number} rows
- * @param {number} columns
- * @returns {number} Quantity of mines
- */
-const calculateNumbersOfMines = (rows, columns) => {
-  const minesQty = parseInt((rows * columns) / 3);
-  return minesQty;
 };
 
 // Function to generate a random number from a range of numbers.
