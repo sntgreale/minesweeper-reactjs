@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as PropType from 'prop-types';
 import Box from '../Box/Box';
-// import handleBoxAction from '../../functions/handleBoxActions';
+import handleBoxAction from '../../functions/handleBoxActions';
 import './Matrix.scss';
 
 /**
@@ -26,16 +26,13 @@ const Matrix = ({ data }) => {
     //* Update isHidden state.
     // Call the function to update state.
     console.log(`Left click on Matrix ${LEFT}`);
+    const newMatrix = handleBoxAction(newData, dataFromChildren, LEFT);
+    setNewData(newMatrix);
   };
 
   const handleClickRightOnBox = (dataFromChildren) => {
-    // TODO Logic for Right click
-    /*
-     * When the user right clicks,
-     * it is necessary to update the state.userChoice ( nothing -> flag -> question ).
-     * But do not show the number (or mine).
-     */
-    console.log(`Right click on Matrix ${RIGHT}`);
+    const newMatrix = handleBoxAction(newData, dataFromChildren, RIGHT);
+    setNewData(newMatrix);
   };
 
   return (

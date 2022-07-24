@@ -18,6 +18,26 @@
  *
  */
 
+/**
+ * Matrix =
+ * [
+ *  { ... }
+ *  {
+ *    * value -> number of mines surrounding it or if it is a mine
+ *    * color -> color of the character displayed to the user (see setColor function)
+ *    originalData: { value: '', color: '' },
+ *
+ *    * value -> value displayed to the user (number of surrounding mines, mine or flag/question)
+ *    * osHidden -> Boolean to determine whether or not to display the value of the field.
+ *    * action -> EMPTY > FLAG > QUESTION > EMPTY ...>
+ *    * color -> Default color
+ *    logicalData: { value: '', isHidden: true, action: '', color: 'white' },
+ *
+ *    * position -> coordinates of the box within the matrix
+ *    position: { row: x, column: y },
+ *  }
+ * ]
+ */
 // Main function to create the matrix.
 const createMatrix = ({
   rowsQuantity: rows,
@@ -45,7 +65,12 @@ const createEmptyMatrix = (rows, columns) => {
     for (let y = 0; y < columns; y++) {
       newMatrix[x][y] = {
         originalData: { value: '', color: '' },
-        logicalData: { value: '', isHidden: true, action: '', color: 'white' },
+        logicalData: {
+          value: '',
+          isHidden: true,
+          action: 'EMPTY',
+          color: 'white',
+        },
         position: { row: x, column: y },
       };
     }

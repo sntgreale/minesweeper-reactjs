@@ -1,3 +1,4 @@
+$--box-background-color: #444;
 $--box-surface-color: #444;
 
 .box-container {
@@ -6,8 +7,9 @@ $--box-surface-color: #444;
   justify-content: center;
   display: flex;
   align-items: center;
-  background-color: var(--box-surface-color);
+  background-color: var(--box-background-color);
   border: none;
+  font-size: x-large;
 }
 
 .box-surface {
@@ -51,8 +53,10 @@ $--box-surface-color: #444;
   --box-surface-color: white;
 }
 
-.box-surface-color-grey {
-  --box-surface-color: #444;
+.box-surface-color-grey,
+.box-container-color-grey {
+  --box-surface-color: #333;
+  --box-background-color: #333;
 }
 
 .box-surface-color-black {

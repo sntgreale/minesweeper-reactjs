@@ -13,14 +13,14 @@ const Box = ({ data, handleClickLeftOnBox, handleClickRightOnBox }) => {
   const [isDisabled] = useState(!logicalData.isHidden);
 
   const handleClickLeft = () => {
-    if (!isDisabled) {
+    if (logicalData.isHidden === true) {
       handleClickLeftOnBox(data);
     }
   };
 
   const handleClickRight = (e) => {
     e.preventDefault();
-    if (!isDisabled) {
+    if (logicalData.isHidden === true) {
       handleClickRightOnBox(data);
     }
   };
@@ -30,7 +30,14 @@ const Box = ({ data, handleClickLeftOnBox, handleClickRightOnBox }) => {
     return value;
   };
 
-  const createClassName = () => {
+  const createClassNameForBoxContainer = () => {
+    const color = !logicalData.isHidden
+      ? originalData.color
+      : logicalData.color;
+    return `box-container box-container-color-${color}`;
+  };
+
+  const createClassNameForBox = () => {
     const color = !logicalData.isHidden
       ? originalData.color
       : logicalData.color;
@@ -39,14 +46,14 @@ const Box = ({ data, handleClickLeftOnBox, handleClickRightOnBox }) => {
 
   return (
     <button
-      className='box-container'
+      className={createClassNameForBoxContainer()}
       onClick={() => handleClickLeft()}
       onContextMenu={(e) => {
         handleClickRight(e);
       }}
       disabled={isDisabled}
     >
-      <div className={createClassName()}>
+      <div className={createClassNameForBox()}>
         <b className='box-label'>{getValue()}</b>
       </div>
     </button>
