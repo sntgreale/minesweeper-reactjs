@@ -45,9 +45,9 @@ const clickLeftMainThread = (matrix, dataOfBox) => {
     if (valueOfBoxPressed === 'ZERO') {
       /**
        * TODO ->
-       * * Reveal Box Info.
        * * Reveal Contiguous Numbers
        */
+      newMatrix = revealContiguousNumbers(newMatrix, newDataOfBox);
       return newMatrix;
     }
     if (valueOfBoxPressed === 'NUMBER') {
@@ -163,15 +163,76 @@ const revealAllMines = (matrix) => {
   return newMatrix;
 };
 
-// TODO
 // Function to traverse contiguous boxes when the value of the selected one is 0.
-const revealContiguousNumbers = () => {};
+const revealContiguousNumbers = (matrix, dataOfBox) => {
+  const newMatrix = [...matrix];
+  const newDataOfBox = { ...dataOfBox };
+
+  const recursiveZeroesSequence = (arrayWithZerosData) => {
+    const positionsToDiscover = [
+      { x: -1, y: -1 },
+      { x: -1, y: 0 },
+      { x: -1, y: 1 },
+
+      { x: 0, y: -1 },
+      { x: 0, y: 1 },
+
+      { x: 1, y: -1 },
+      { x: 1, y: 0 },
+      { x: 1, y: 1 },
+    ];
+    if (arrayWithZerosData.length > 0) {
+      let currentDataBox = arrayWithZerosData.shift();
+      const {
+        position: { row, column },
+      } = currentDataBox;
+      currentDataBox = setLogicalDataHiddenStatus(currentDataBox, false);
+      currentDataBox = updateLogicalValue(currentDataBox);
+      newMatrix[row][column] = currentDataBox;
+
+      positionsToDiscover.forEach((pos) => {
+        try {
+          let fictitiousBoxData = { ...newMatrix[row + pos.x][column + pos.y] };
+          if (fictitiousBoxData.originalData.value !== 0) {
+            fictitiousBoxData = setLogicalDataHiddenStatus(
+              fictitiousBoxData,
+              false
+            );
+            fictitiousBoxData = updateLogicalValue(fictitiousBoxData);
+            newMatrix[row + pos.x][column + pos.y] = fictitiousBoxData;
+          } else {
+            const dataAlreadyExisting = arrayWithZerosData.some(
+              (dataBox) => dataBox.position === fictitiousBoxData.position
+            );
+            const fictitiousBoxDataHiddenStatus =
+              getLogicalDataHiddenStatus(fictitiousBoxData);
+            if (
+              dataAlreadyExisting === false &&
+              fictitiousBoxDataHiddenStatus === true
+            ) {
+              arrayWithZerosData.push(fictitiousBoxData);
+            }
+          }
+        } catch (e) {
+          //
+        }
+      });
+      recursiveZeroesSequence(arrayWithZerosData);
+    } else {
+      return;
+    }
+  };
+
+  const boxesToBeProcessed = [newDataOfBox];
+  recursiveZeroesSequence(boxesToBeProcessed);
+  return newMatrix;
+};
 
 // Function that returns the value of the pressed box. (MINE - ZERO - NUMBER)
 const determinePressedValue = (dataOfBox) => {
   const value = dataOfBox.originalData.value;
   if (value === '*') return 'MINE';
-  if (value === '0') return 'ZERO';
+  if (value === 0) return 'ZERO';
   return 'NUMBER';
 };
 

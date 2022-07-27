@@ -1,0 +1,12 @@
+$--message-color: #444;
+
+.message {
+  color: var(--message-color);
+}
+
+.message-type-error {
+  --message-color: red;
+}
+.message-type-success {
+  --message-color: green;
+}

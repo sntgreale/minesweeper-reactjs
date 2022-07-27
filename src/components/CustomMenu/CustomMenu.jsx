@@ -18,6 +18,12 @@ const CustomMenu = ({ handleEntrance }) => {
   /* useEffect used to determine the maximum number of possible mines to be entered by the user. */
   /* Also used to determine the status (active or inactive of the PLAY GAME button) according to the number of mines entered. */
   /* Mines MAX = rows*columns-10 */
+  //! FIX IT
+  //! Its functionality is not correct.
+  //! Validate correctly the MIN and MAX of the columns
+  //! (in case of invalid values, set the min/max closest to them).
+  //! Once you have correctly validated (and set) the value for these fields,
+  //! proceed to validate (and set) the number of mines.
   useEffect(() => {
     const currentInputs = [...inputsOptions];
     const currentButtons = [...buttonsOptions];
@@ -29,8 +35,6 @@ const CustomMenu = ({ handleEntrance }) => {
       'PLAYGAME'
     );
     const isValidValue = validateMinesQuantity(newMaxQtyMines);
-    // TODO FIX ME
-    //! It looks ugly .disabled = !isValidValue. See how to change it.
     currentButtons[playButtonIndex].disabled = !isValidValue;
 
     setInputOptions(currentInputs);

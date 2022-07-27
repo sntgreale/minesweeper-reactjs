@@ -15,17 +15,6 @@ const Matrix = ({ data }) => {
   const [newData, setNewData] = useState(data);
 
   const handleClickLeftOnBox = (dataFromChildren) => {
-    // TODO: Logic for Left click
-    // Call function to check if Box is not already showed.
-    //* If isDisabled = true, this is not necessary.
-    //* Because the value corresponding to the box is being displayed
-    //* but the button is disabled to trigger any function.
-    // Call the function to check state of Box AFTER unhide their value.
-    //* If it is a mine, it is necessary to proceed differently than if it were any other number.
-    // Call the function to unhide the Box value.
-    //* Update isHidden state.
-    // Call the function to update state.
-    console.log(`Left click on Matrix ${LEFT}`);
     const newMatrix = handleBoxAction(newData, dataFromChildren, LEFT);
     setNewData(newMatrix);
   };

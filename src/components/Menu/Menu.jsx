@@ -25,11 +25,6 @@ const Menu = () => {
         setUseCustom(false);
       }
     }
-    /**
-     * TODO When we receive the information from the custom input:
-     * 1.- Validate it
-     * 2.- Create the Matrix.
-     */
   };
 
   const handleEntrieSelected = (dataFromChildren) => {
