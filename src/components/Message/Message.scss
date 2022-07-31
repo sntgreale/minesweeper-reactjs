@@ -7,6 +7,11 @@ $--message-color: #444;
 .message-type-error {
   --message-color: red;
 }
+
 .message-type-success {
   --message-color: green;
+}
+
+.message-type-info {
+  --message-color: blue;
 }

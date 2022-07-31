@@ -14,13 +14,15 @@ import './Input.scss';
  */
 
 const Input = ({ data, handleChange }) => {
-  const { _searchKey, label, defaultValue, inputConfig } = data;
-  const [value, setValue] = useState(defaultValue);
+  const { _searchKey, label, value, defaultValue, inputConfig } = data;
+  const [inputValue, setInputValue] = useState(() => {
+    value ? value : defaultValue;
+  });
 
   const handlerChangeValue = (e) => {
-    const value = e.target.value;
-    setValue(value);
-    handleChange({ _searchKey, value });
+    const targetValue = e.target.value;
+    setInputValue(targetValue);
+    handleChange({ _searchKey, targetValue });
   };
 
   return (
@@ -36,7 +38,7 @@ const Input = ({ data, handleChange }) => {
             min={inputConfig.minQty}
             max={inputConfig.maxQty}
             defaultValue={defaultValue}
-            value={value}
+            value={inputValue}
             onChange={(e) => handlerChangeValue(e)}
           />
         </div>

@@ -3,6 +3,8 @@
     "_searchKey": "ROWS",
     "label": "Rows",
     "defaultValue": 5,
+    "value": 5,
+    "message": {},
     "inputConfig": {
       "type": "number",
       "minQty": 5,
@@ -13,6 +15,8 @@
     "_searchKey": "COLUMNS",
     "label": "Columns",
     "defaultValue": 5,
+    "value": 5,
+    "message": {},
     "inputConfig": {
       "type": "number",
       "minQty": 5,
@@ -22,10 +26,12 @@
   {
     "_searchKey": "MINES",
     "label": "Mines",
-    "defaultValue": 15,
+    "defaultValue": 10,
+    "value": 10,
+    "message": {},
     "inputConfig": {
       "type": "number",
-      "minQty": 15,
+      "minQty": 10,
       "maxQty": 1195
     }
   }

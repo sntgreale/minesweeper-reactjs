@@ -1,52 +1,118 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import Message from '../Message/Message';
 import Separator from '../Separator/Separator';
 import buttonsList from './CustomMenuButtons.config.json';
-import inputList from './CustomMenuInputs.config.json';
+import inputsList from './CustomMenuInputs.config.json';
 import * as PropType from 'prop-types';
 import './CustomMenu.scss';
 
 const CustomMenu = ({ handleEntrance }) => {
-  const [inputsOptions, setInputOptions] = useState(inputList);
-  const [buttonsOptions, setButtonsOptions] = useState(buttonsList);
-  // TODO FIX ME: Same values as in the configuration
-  const [rowsQuantity, setRowsQuantity] = useState(5); //! FIX ME
-  const [columnsQuantity, setColsQuantity] = useState(5); //! FIX ME
-  const [minesQuantity, setMinesQuantity] = useState(15); //! FIX ME
+  const [inputsOptions, setInputOptions] = useState(inputsList);
+  const [buttonsOptions] = useState(buttonsList);
+  const [rowsQuantity, setRowsQuantity] = useState(5);
+  const [columnsQuantity, setColsQuantity] = useState(5);
+  const [minesQuantity, setMinesQuantity] = useState(10);
 
-  /* useEffect used to determine the maximum number of possible mines to be entered by the user. */
-  /* Also used to determine the status (active or inactive of the PLAY GAME button) according to the number of mines entered. */
-  /* Mines MAX = rows*columns-10 */
-  //! FIX IT
-  //! Its functionality is not correct.
-  //! Validate correctly the MIN and MAX of the columns
-  //! (in case of invalid values, set the min/max closest to them).
-  //! Once you have correctly validated (and set) the value for these fields,
-  //! proceed to validate (and set) the number of mines.
-  useEffect(() => {
-    const currentInputs = [...inputsOptions];
-    const currentButtons = [...buttonsOptions];
-    const minesInputIndex = returnConfigurationOption(currentInputs, 'MINES');
-    const newMaxQtyMines = rowsQuantity * columnsQuantity - 10;
-    currentInputs[minesInputIndex].inputConfig.maxQty = newMaxQtyMines;
-    const playButtonIndex = returnConfigurationOption(
-      currentButtons,
-      'PLAYGAME'
+  const validateRowsAndColumnsData = (searchKey, quantityValue) => {
+    let newInputOptions = [...inputsOptions];
+    let newMessage = resetMessage();
+    const { minQty, maxQty } = returnMinAndMaxValues(
+      newInputOptions,
+      searchKey
     );
-    const isValidValue = validateMinesQuantity(newMaxQtyMines);
-    currentButtons[playButtonIndex].disabled = !isValidValue;
+    const isWithinTheRange = numberEnteredIsInTheRange(
+      minQty,
+      quantityValue,
+      maxQty
+    );
+    if (!isWithinTheRange) {
+      newMessage = createErrorMessage(minQty, maxQty);
+    }
+    newInputOptions = setMessage(searchKey, newMessage);
+    setInputOptions(newInputOptions);
+  };
 
-    setInputOptions(currentInputs);
-    setButtonsOptions(currentButtons);
-  }, [rowsQuantity, columnsQuantity, minesQuantity]);
+  useEffect(() => {
+    validateRowsAndColumnsData('ROWS', rowsQuantity);
+    if (rowsQuantity !== 0) {
+      validateMinesInputData();
+    }
+  }, [rowsQuantity, minesQuantity]);
 
-  const validateMinesQuantity = (maxQtyValid) => {
-    return minesQuantity >= 1 && minesQuantity <= maxQtyValid;
+  useEffect(() => {
+    validateRowsAndColumnsData('COLUMNS', columnsQuantity);
+    if (columnsQuantity !== 0) {
+      validateMinesInputData();
+    }
+  }, [columnsQuantity, minesQuantity]);
+
+  const validateMinesInputData = () => {
+    let newInputOptions = [...inputsOptions];
+    let newMessage = resetMessage();
+    const { minQty } = returnMinAndMaxValues(newInputOptions, 'MINES');
+    const maxAllowed = rowsQuantity * columnsQuantity - 10;
+    const isWithinTheRange = numberEnteredIsInTheRange(
+      minQty,
+      minesQuantity,
+      maxAllowed
+    );
+    if (!isWithinTheRange) {
+      newMessage = createErrorMessage(minQty, maxAllowed);
+    }
+    newInputOptions = setMessage('MINES', newMessage);
+    setInputOptions(newInputOptions);
+  };
+
+  const setMessage = (searchKey, message) => {
+    const newInputOptions = [...inputsOptions];
+    const inputIndex = returnConfigurationOptionIndex(
+      newInputOptions,
+      searchKey
+    );
+    newInputOptions[inputIndex].message = message;
+    return newInputOptions;
+  };
+
+  const createErrorMessage = (min, max) => {
+    return {
+      message: `The value entered must be between: ${min}-${max}`,
+      typeOfMessage: 'error',
+    };
+  };
+
+  const resetMessage = () => {
+    return { message: '', typeOfMessage: '' };
+  };
+
+  const returnSpecificConfiguration = (inputsConfiguration, searchKey) => {
+    const configurationIndex = returnConfigurationOptionIndex(
+      inputsConfiguration,
+      searchKey
+    );
+    const configuration = inputsConfiguration[configurationIndex];
+    return configuration;
+  };
+
+  const numberEnteredIsInTheRange = (min, val, max) => {
+    if (val < min || val > max) {
+      return false;
+    }
+    return true;
+  };
+
+  const returnMinAndMaxValues = (inputsConfiguration, searchKey) => {
+    const inputConfiguration = returnSpecificConfiguration(
+      inputsConfiguration,
+      searchKey
+    );
+    const { minQty, maxQty } = inputConfiguration.inputConfig;
+    return { minQty, maxQty };
   };
 
   /* Function to return a specific object according to its Search Key */
-  const returnConfigurationOption = (array, key) => {
+  const returnConfigurationOptionIndex = (array, key) => {
     const index = array.findIndex((item) => {
       return item._searchKey === key;
     });
@@ -55,7 +121,10 @@ const CustomMenu = ({ handleEntrance }) => {
 
   /* Function to handle changes of input statuses */
   const handleInputChanges = (dataFromChildren) => {
-    const quantity = parseInt(dataFromChildren.value);
+    let quantity = parseInt(dataFromChildren.targetValue);
+    if (Number.isNaN(quantity) || quantity < 0) {
+      quantity = 0;
+    }
     if (dataFromChildren._searchKey === 'ROWS') {
       setRowsQuantity(quantity);
       return;
@@ -74,6 +143,7 @@ const CustomMenu = ({ handleEntrance }) => {
   const handleButtonPressed = (dataFromChildren) => {
     const buttonType = dataFromChildren?._searchKey;
     if (buttonType === 'PLAYGAME') {
+      // TODO VALIDATE ROWS - COLUMNS - MINES
       handleEntrance({
         action: buttonType,
         data: { rowsQuantity, columnsQuantity, minesQuantity },
@@ -87,13 +157,16 @@ const CustomMenu = ({ handleEntrance }) => {
   const renderInputs = () => {
     return inputsOptions.map((inp) => {
       return (
-        <Input
-          data={inp}
-          handleChange={(dataFromChildren) =>
-            handleInputChanges(dataFromChildren)
-          }
-          key={inp._searchKey}
-        />
+        <>
+          <Input
+            data={inp}
+            handleChange={(dataFromChildren) =>
+              handleInputChanges(dataFromChildren)
+            }
+            key={inp._searchKey}
+          />
+          <Message messageData={inp.message} />
+        </>
       );
     });
   };
