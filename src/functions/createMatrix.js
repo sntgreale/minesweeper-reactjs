@@ -23,18 +23,18 @@
  * [
  *  { ... }
  *  {
+ *    ! originalData: { value: '', color: '' },
  *    * value -> number of mines surrounding it or if it is a mine
  *    * color -> color of the character displayed to the user (see setColor function)
- *    originalData: { value: '', color: '' },
  *
+ *    ! logicalData: { value: '', isHidden: true, action: '', color: 'white' },
  *    * value -> value displayed to the user (number of surrounding mines, mine or flag/question)
- *    * osHidden -> Boolean to determine whether or not to display the value of the field.
+ *    * isHidden -> Boolean to determine whether or not to display the value of the field.
  *    * action -> EMPTY > FLAG > QUESTION > EMPTY ...>
  *    * color -> Default color
- *    logicalData: { value: '', isHidden: true, action: '', color: 'white' },
  *
+ *    ! position: { row: x, column: y },
  *    * position -> coordinates of the box within the matrix
- *    position: { row: x, column: y },
  *  }
  * ]
  */

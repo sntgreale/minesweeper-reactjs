@@ -157,7 +157,7 @@ const CustomMenu = ({ handleEntrance }) => {
   const renderInputs = () => {
     return inputsOptions.map((inp) => {
       return (
-        <>
+        <div key={Math.random()}>
           <Input
             data={inp}
             handleChange={(dataFromChildren) =>
@@ -166,7 +166,7 @@ const CustomMenu = ({ handleEntrance }) => {
             key={inp._searchKey}
           />
           <Message messageData={inp.message} />
-        </>
+        </div>
       );
     });
   };
